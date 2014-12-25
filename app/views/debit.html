@@ -1,0 +1,72 @@
+<div ng-controller="DebitCtrl">
+  <div class="row">
+    <div class="col-lg-12">
+
+        <div class="col-lg-12">
+          <div class="col-lg-4">
+           <label>Start Date</label>  
+              <div class="input-group">
+               <input type="text" class="form-control" datepicker-popup="{{format}}" 
+                      name="dt" ng-model="dt" is-open="datepickers.dt" min-date="10-01-2014"
+                      datepicker-options="dateOptions" ng-required="true" 
+                      close-text="Close" />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" ng-click="open($event,'dt')">
+                      <i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>      
+          </div>
+          <div class="col-lg-4">
+            <label>End Date</label>  
+              <div class="input-group">
+               <input type="text" class="form-control" datepicker-popup="{{format}}" 
+                      name="dtSecond" ng-model="dtSecond"
+                      is-open="datepickers.dtSecond" datepicker-options="dateOptions" 
+                      ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                  <button class="btn btn-default" ng-click="open($event,'dtSecond')">
+                      <i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+        </div>
+          <div class="col-lg-4">
+            <button ng-click="getData()">Get data</button>
+          </div>
+      </div>
+
+        <div class="row">
+            <highchart id="chart1" config="chartConfig" class="col-lg-12"  style="margin-top: 30px;"></highchart>
+        </div>
+
+        <div class="row">
+            <highchart id="chart2" config="chartConfig_debit" class="col-lg-12"  style="margin-top: 30px;"></highchart>
+        </div>
+
+        <div class="row-fluid hide">
+            <label for="prettyJSON"><input id="prettyJSON" type="checkbox" ng-model="prettyJSON"> Pretty JSON</label>
+        </div>
+        <div class="row-fluid hide">
+            <pre ng-show="prettyJSON">
+              {{ chartConfig | json }}
+            </pre>
+            <pre ng-show="!prettyJSON">
+              {{ chartConfig }}
+            </pre>
+        </div>
+    </div>
+    <div class="col-lg-12 hide">
+        <div class="row-fluid">Title <input ng-model="chartConfig.title.text"></div>
+        <div class="row-fluid">Subtitle <input ng-model="chartConfig.subtitle.text"></div>
+        <div class="row-fluid">Width <input ng-model="chartConfig.size.width"></div>
+        <div class="row-fluid">Height <input ng-model="chartConfig.size.height"></div>
+        <div class="row-fluid"><button ng-click="reflow()">reflow</button></div>
+
+        <div class="row-fluid">Default Type <select ng-model="chartConfig.options.chart.type" ng-options="t.id as t.title for t in chartTypes"></select></div>
+        <div class="row-fluid">Stack <select ng-model="chartConfig.options.plotOptions.series.stacking" ng-options="t.id as t.title for t in chartStack"></select></div>
+        <div class="row-fluid"><label><input type="checkbox" ng-model="chartConfig.loading"> is loading</label></div>
+        <div class="row-fluid"><label><input type="checkbox" ng-model="chartConfig.credits.enabled"> credits</label></div>
+    </div>
+
+
+  </div>
+</div>
